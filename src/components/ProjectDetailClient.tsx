@@ -32,6 +32,48 @@ export default function ProjectDetailClient({
     localStorage.setItem("theme", newTheme);
   };
 
+  // Add JSON-LD structured data
+  useEffect(() => {
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      name: project.title,
+      description: project.description || project.subtitle,
+      image: project.image,
+      video: project.video
+        ? {
+            "@type": "VideoObject",
+            url: project.video,
+            name: project.title,
+          }
+        : undefined,
+      creator: {
+        "@type": "Person",
+        name: "Kayhan Ayas",
+        url: "https://3dkayhan.com",
+      },
+      datePublished: project.date,
+      keywords: [project.category, project.client, project.software].filter(
+        Boolean,
+      ),
+      about: {
+        "@type": "Thing",
+        name: project.category,
+      },
+    };
+
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.innerHTML = JSON.stringify(schema);
+    document.head.appendChild(script);
+
+    return () => {
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+  }, [project]);
+
   return (
     <div
       className={`min-h-screen flex flex-col transition-colors duration-500 selection:bg-brand-cyan/30 ${

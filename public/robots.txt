@@ -1,0 +1,23 @@
+# Robots.txt for 3D Kayhan Ayas Portfolio
+User-agent: *
+Allow: /
+Allow: /projects/
+Disallow: /api/
+Disallow: /*.json
+Disallow: /.next/
+
+# Sitemap location
+Sitemap:https://design3d.kayhanayas.com/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
+
+# Specific for Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Specific for Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
